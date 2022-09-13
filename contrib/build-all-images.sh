@@ -6,14 +6,14 @@ DOCKERFILE=""
 
 
 # Build docker-compose-generator
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver-docker/dcg-latest/docker-compose-generator/linuxamd64.Dockerfile
+# https://raw.githubusercontent.com/zeuspayments/btcpayserver-docker/dcg-latest/docker-compose-generator/linuxamd64.Dockerfile
 DOCKERFILE="docker-compose-generator/linuxamd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver-docker/dcg-latest/docker-compose-generator/linuxarm32v7.Dockerfile
+# https://raw.githubusercontent.com/zeuspayments/btcpayserver-docker/dcg-latest/docker-compose-generator/linuxarm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="docker-compose-generator/linuxarm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver-docker/dcg-latest/docker-compose-generator/linuxarm64v8.Dockerfile
+# https://raw.githubusercontent.com/zeuspayments/btcpayserver-docker/dcg-latest/docker-compose-generator/linuxarm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="docker-compose-generator/linuxarm64v8.Dockerfile"
 echo "Building btcpayserver/docker-compose-generator:latest"
-git clone https://github.com/btcpayserver/btcpayserver-docker docker-compose-generator
+git clone https://github.com/zeuspayments/btcpayserver-docker docker-compose-generator
 cd docker-compose-generator
 git checkout dcg-latest
 cd "$(dirname $DOCKERFILE)"
@@ -241,19 +241,19 @@ docker build -f "$DOCKERFILE" -t "dalijolijo/docker-bitcore:0.90.9.10" .
 cd - && cd ..
 
 
-# Build btcpayserver
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.10/amd64.Dockerfile
+# Build zeuspayments
+# https://raw.githubusercontent.com/zeuspayments/btcpayserver/v1.6.10.1/amd64.Dockerfile
 DOCKERFILE="amd64.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.10/arm32v7.Dockerfile
+# https://raw.githubusercontent.com/zeuspayments/btcpayserver/v1.6.10.1/arm32v7.Dockerfile
 [[ "$(uname -m)" == "armv7l" ]] && DOCKERFILE="arm32v7.Dockerfile"
-# https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.10/arm64v8.Dockerfile
+# https://raw.githubusercontent.com/zeuspayments/btcpayserver/v1.6.10.1/arm64v8.Dockerfile
 [[ "$(uname -m)" == "aarch64" ]] && DOCKERFILE="arm64v8.Dockerfile"
-echo "Building btcpayserver/btcpayserver:1.6.10$<BTCPAY_BUILD_CONFIGURATION>?"
-git clone https://github.com/btcpayserver/btcpayserver btcpayserver
+echo "Building zeuspayments/btcpayserver:1.6.10.1$<BTCPAY_BUILD_CONFIGURATION>?"
+git clone https://github.com/zeuspayments/btcpayserver btcpayserver
 cd btcpayserver
-git checkout v1.6.10
+git checkout v1.6.10.1
 cd "$(dirname $DOCKERFILE)"
-docker build -f "$DOCKERFILE" -t "btcpayserver/btcpayserver:1.6.10$<BTCPAY_BUILD_CONFIGURATION>?" .
+docker build -f "$DOCKERFILE" -t "zeuspayments/btcpayserver:1.6.10.1$<BTCPAY_BUILD_CONFIGURATION>?" .
 cd - && cd ..
 
 
@@ -991,7 +991,7 @@ cd - && cd ..
 # https://raw.githubusercontent.com/btcpayserver/docker-woocommerce/v3.0.16/Dockerfile
 DOCKERFILE="Dockerfile"
 echo "Building btcpayserver/docker-woocommerce:3.0.16"
-git clone https://github.com/btcpayserver/docker-woocommerce docker-woocommerce
+git clone https://github.com/zeuspayments/docker-woocommerce docker-woocommerce
 cd docker-woocommerce
 git checkout v3.0.16
 cd "$(dirname $DOCKERFILE)"

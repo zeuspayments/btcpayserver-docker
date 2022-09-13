@@ -1,18 +1,16 @@
-[![CircleCI](https://circleci.com/gh/btcpayserver/btcpayserver-docker.svg?style=svg)](https://app.circleci.com/pipelines/github/btcpayserver/btcpayserver-docker)
-
-#### Start accepting Bitcoin today with BTCPay Server! This guide will walk you through the installation.
+#### Start accepting Bitcoin today with ZEUSPay! This guide will walk you through the installation.
 
 # Introduction
 
-While [our instructions](https://docs.btcpayserver.org/LunaNodeWebDeployment/) cover how to install BTCPayServer in one click on Azure or Lunanode, BTCPay Server is not limited to those options.
+While [our instructions](https://zeuspay.com/) cover how to get started with ZEUSPay in one click, ZEUSPay is not limited to those options.
 
-You will find below information about how you can install BTCPay Server easily in any environment having docker available.
+You will find below information about how you can install ZEUSPay easily in any environment having docker available.
 
 # Architecture
 
 ![Architecture](https://github.com/btcpayserver/btcpayserver-doc/raw/master/docs/img/Architecture.png)
 
-As you can see, BTCPay depends on several pieces of infrastructure, mainly:
+As you can see, ZEUSPay depends on several pieces of infrastructure, mainly:
 
 * A lightweight block explorer (NBXplorer),
 * A database (PostgreSQL or SQLite),
@@ -26,25 +24,17 @@ There can be more dependencies if you support more than just standard Bitcoin tr
 
 Note: The setup process can be time consuming, but is heavily automated to make it a fun and easy experience.
 
-Take a look at how BTCPay works in a video below.
-
-[![](https://img.youtube.com/vi/nr0UNbz3AoQ/hqdefault.jpg)](https://www.youtube.com/watch?v=nr0UNbz3AoQ)
-
-Here is a presentation of the global architecture at Advancing Bitcoin conference.
-
-[![BTCPay - Architecture overview](https://i3.ytimg.com/vi/Up0dvorzSNM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Up0dvorzSNM "BTCPay - Architecture overview")
-
 # Full installation (for technical users)
 
-You can also install BTCPay Server on your own machine or VPS instance.
+You can also install ZEUSPay on your own machine or VPS instance.
 
 The officially supported setup is driven by Docker (and Docker-Compose).
 
 First, make sure you have a domain name pointing to your host `A record`, with ports `443` and `80` externally accessible. For Lightning Network, port `9735` is required (`9736` if you use Litecoin Lightning). Otherwise, you will have to set a domain manually by running `changedomain.sh`.
 
-Let's assume your domain is `btcpay.EXAMPLE.com`.
+Let's assume your domain is `zeuspay.EXAMPLE.com`.
 
-The setup below assumes you want to support Bitcoin, c-lightning, HTTPS automatically configured by Nginx. It also enables node pruning, which you can [modify](#generated-docker-compose) or ignore if you have enough disk space for a full node. Finally, your domain is `btcpay.EXAMPLE.com` should reflect your actual domain name.
+The setup below assumes you want to support Bitcoin, c-lightning, HTTPS automatically configured by Nginx. It also enables node pruning, which you can [modify](#generated-docker-compose) or ignore if you have enough disk space for a full node. Finally, your domain is `zeuspay.EXAMPLE.com` should reflect your actual domain name.
 
 [Environment variables](#environment-variables) can be tailored to your needs. Some variables require additional storage space.
 
@@ -52,16 +42,16 @@ The setup below assumes you want to support Bitcoin, c-lightning, HTTPS automati
 # Login as root
 sudo su -
 
-# Create a folder for BTCPay
+# Create a folder for ZEUSPay
 mkdir BTCPayServer
 cd BTCPayServer
 
 # Clone this repository
-git clone https://github.com/btcpayserver/btcpayserver-docker
+git clone https://github.com/zeuspayments/btcpayserver-docker
 cd btcpayserver-docker
 
 # Run btcpay-setup.sh with the right parameters
-export BTCPAY_HOST="btcpay.EXAMPLE.com"
+export BTCPAY_HOST="zeuspay.EXAMPLE.com"
 export NBITCOIN_NETWORK="mainnet"
 export BTCPAYGEN_CRYPTO1="btc"
 export BTCPAYGEN_ADDITIONAL_FRAGMENTS="opt-save-storage-s"
@@ -77,24 +67,16 @@ exit
 
 * Install Docker
 * Install Docker-Compose
-* Make sure BTCPay starts at reboot via upstart or systemd
-* Setup environment variables to use BTCPay utilities
-* Add BTCPay utilities in /usr/bin
-* Start BTCPay Server
-
-Video below guides you step by step on how to set up BTCPay Server on a VPS with Docker.
-
-[![](https://img.youtube.com/vi/x6hqTFgHqhA/hqdefault.jpg)](https://www.youtube.com/watch?v=x6hqTFgHqhA)
-
-Check out this video if you're interested in learning more about setting up [BTCPay with Docker Compose](https://www.youtube.com/playlist?list=PLH4m2oS2ratfaprAFx9E3ZDjwxNKvCk4e).
-
-[![Docker automated build](https://img.shields.io/docker/automated/btcpayserver/btcpayserver.svg)](https://hub.docker.com/r/btcpayserver/btcpayserver/)
+* Make sure ZEUSPay starts at reboot via upstart or systemd
+* Setup environment variables to use ZEUSPay utilities
+* Add ZEUSPay utilities in /usr/bin
+* Start ZEUSPay
 
 # Environment variables
 
 `btcpay-setup.sh` will use the following environment variables:
 
-* `BTCPAY_HOST`: The hostname of your website (eg. `btcpay.example.com`)
+* `BTCPAY_HOST`: The hostname of your website (eg. `zeuspay.example.com`)
 * `BTCPAY_ADDITIONAL_HOSTS`: Optional, specify additional domains to your BTCPayServer with https support if enabled. (eg. example2.com,example3.com)
 * `REVERSEPROXY_HTTP_PORT`: The public port the reverse proxy binds to for HTTP traffic (default: 80)
 * `REVERSEPROXY_HTTPS_PORT`: The public port the reverse proxy binds to for HTTPS traffic (default: 443)
@@ -131,19 +113,19 @@ Additionally, there are specific environment variables for some addons:
 
 # Tooling
 
-A wide variety of useful scripts are available once BTCPay is installed:
+A wide variety of useful scripts are available once ZEUSPay is installed:
 
 * `bitcoin-cli.sh`: Access your Bitcoin node instance (for RPC)
 * `bitcoin-lightning-cli.sh`: Access your C-Lightning node instance (for RPC)
-* `changedomain.sh`: Change the domain of your BTCPayServer (remember to disable 2FA/U2F first, as you risk being unable to log in to your account)
-* `btcpay-update.sh`: Update BTCPayServer to the latest version
+* `changedomain.sh`: Change the domain of your ZEUSPay (remember to disable 2FA/U2F first, as you risk being unable to log in to your account)
+* `btcpay-update.sh`: Update ZEUSPay to the latest version
 * `btcpay-up.sh`: Run `docker-compose up`
 * `btcpay-down.sh`: Run `docker-compose down`
 * `btcpay-setup.sh`: Change the settings of your server
 * `btcpay-clean.sh`: Purge any unused docker images
 * `. ./btcpay-setup.sh`: Information about additional parameters
-* `. ./btcpay-setup.sh -i`: Set up your BTCPayServer
-* `btcpay-restart.sh`: Restart your BTCPayServer
+* `. ./btcpay-setup.sh -i`: Set up your ZEUSPay
+* `btcpay-restart.sh`: Restart your ZEUSPay
 
 # Under the hood
 
@@ -345,11 +327,10 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | shesek/spark-wallet | 0.2.9-standalone | [✔️](https://raw.githubusercontent.com/shesek/spark-wallet/v0.2.9/Dockerfile) | [✔️](https://raw.githubusercontent.com/shesek/spark-wallet/v0.2.9/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/shesek/spark-wallet/v0.2.9/arm64v8.Dockerfile) | [Github](https://github.com/shesek/spark-wallet) - [DockerHub](https://hub.docker.com/r/shesek/spark-wallet) |
 | saubyk/c-lightning-rest | 0.7.2 | [✔️](https://raw.githubusercontent.com/Ride-The-Lightning/c-lightning-REST/v0.7.2/amd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/Ride-The-Lightning/c-lightning-REST/v0.7.2/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/Ride-The-Lightning/c-lightning-REST/v0.7.2/arm64v8.Dockerfile) | [Github](https://github.com/Ride-The-Lightning/c-lightning-REST) - [DockerHub](https://hub.docker.com/r/saubyk/c-lightning-rest) |
 | shahanafarooqui/rtl | 0.12.3 | [✔️](https://raw.githubusercontent.com/Ride-The-Lightning/RTL/v0.12.3/dockerfiles/Dockerfile) | [✔️](https://raw.githubusercontent.com/Ride-The-Lightning/RTL/v0.12.3/dockerfiles/Dockerfile.arm32v7) | [✔️](https://raw.githubusercontent.com/Ride-The-Lightning/RTL/v0.12.3/dockerfiles/Dockerfile.arm64v8) | [Github](https://github.com/Ride-The-Lightning/RTL) - [DockerHub](https://hub.docker.com/r/shahanafarooqui/rtl) |
-| btcpayserver/lnd | v0.15.0-beta | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.15.0-beta/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.15.0-beta/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.15.0-beta/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/lnd) - [DockerHub](https://hub.docker.com/r/btcpayserver/lnd) |
+| btcpayserver/lnd | v0.14.2-beta | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.14.2-beta/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.14.2-beta/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/lnd/basedon-v0.14.2-beta/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/lnd) - [DockerHub](https://hub.docker.com/r/btcpayserver/lnd) |
 | btcpayserver/bitcoin | 22.0-1 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Bitcoin/22.0-1/Bitcoin/22.0/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Bitcoin/22.0-1/Bitcoin/22.0/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Bitcoin/22.0-1/Bitcoin/22.0/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/bitcoin) |
-| btcpayserver/btcpayserver | 1.6.10$<BTCPAY_BUILD_CONFIGURATION>? | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.10/amd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.10/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.10/arm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/btcpayserver) - [DockerHub](https://hub.docker.com/r/btcpayserver/btcpayserver) |
-| btcpayserver/monero | 0.18.1.0-amd64 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Monero/0.18.1.0/Monero/0.18.1.0/linuxamd64.Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/monero) |
-| nicolasdorier/nbxplorer | 2.3.34 | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.3.34/Dockerfile.linuxamd64) | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.3.34/Dockerfile.linuxarm32v7) | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.3.34/Dockerfile.linuxarm64v8) | [Github](https://github.com/dgarage/nbxplorer) - [DockerHub](https://hub.docker.com/r/nicolasdorier/nbxplorer) |
+| btcpayserver/btcpayserver | 1.6.3$<BTCPAY_BUILD_CONFIGURATION>? | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.3/amd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.3/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/btcpayserver/v1.6.3/arm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/btcpayserver) - [DockerHub](https://hub.docker.com/r/btcpayserver/btcpayserver) |
+| nicolasdorier/nbxplorer | 2.3.29 | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.3.29/Dockerfile.linuxamd64) | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.3.29/Dockerfile.linuxarm32v7) | [✔️](https://raw.githubusercontent.com/dgarage/nbxplorer/v2.3.29/Dockerfile.linuxarm64v8) | [Github](https://github.com/dgarage/nbxplorer) - [DockerHub](https://hub.docker.com/r/nicolasdorier/nbxplorer) |
 | btcpayserver/letsencrypt-nginx-proxy-companion | 1.12.2 | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.12.2/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.12.2/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion/v1.12.2/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/docker-letsencrypt-nginx-proxy-companion) - [DockerHub](https://hub.docker.com/r/btcpayserver/letsencrypt-nginx-proxy-companion) |
 | nginx | 1.16.0 | [✔️](https://raw.githubusercontent.com/nginxinc/docker-nginx/1.16.0/stable/stretch/Dockerfile) | [✔️](https://raw.githubusercontent.com/nginxinc/docker-nginx/1.16.0/stable/stretch/Dockerfile) | [✔️](https://raw.githubusercontent.com/nginxinc/docker-nginx/1.16.0/stable/stretch/Dockerfile) | [Github](https://github.com/nginxinc/docker-nginx) - [DockerHub](https://hub.docker.com/_/nginx) |
 | btcpayserver/docker-gen | 0.7.8 | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-gen/v0.7.8/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-gen/v0.7.8/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/docker-gen/v0.7.8/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/docker-gen) - [DockerHub](https://hub.docker.com/r/btcpayserver/docker-gen) |
@@ -360,7 +341,7 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | btcpayserver/joinmarket | 0.9.5 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/JoinMarket/0.9.5/JoinMarket/0.9.5/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/JoinMarket/0.9.5/JoinMarket/0.9.5/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/JoinMarket/0.9.5/JoinMarket/0.9.5/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/joinmarket) |
 | nicolasdorier/ndlc-cli | 1.0.1 | [✔️](https://raw.githubusercontent.com/dgarage/ndlc/releases/1.0.1/amd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/dgarage/ndlc/releases/1.0.1/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/dgarage/ndlc/releases/1.0.1/arm64v8.Dockerfile) | [Github](https://github.com/dgarage/ndlc) - [DockerHub](https://hub.docker.com/r/nicolasdorier/ndlc-cli) |
 | pihole/pihole | v5.7 | [✔️](https://raw.githubusercontent.com/pi-hole/docker-pi-hole/v5.7/Dockerfile) | [✔️](https://raw.githubusercontent.com/pi-hole/docker-pi-hole/v5.7/Dockerfile) | [✔️](https://raw.githubusercontent.com/pi-hole/docker-pi-hole/v5.7/Dockerfile) | [Github](https://github.com/pi-hole/docker-pi-hole) - [DockerHub](https://hub.docker.com/r/pihole/pihole) |
-| btcpayserver/tor | 0.4.7.8 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Tor/0.4.7.8/Tor/0.4.7.8/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Tor/0.4.7.8/Tor/0.4.7.8/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Tor/0.4.7.8/Tor/0.4.7.8/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/tor) |
+| btcpayserver/tor | 0.4.5.9 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Tor/0.4.5.9/Tor/0.4.5.9/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Tor/0.4.5.9/Tor/0.4.5.9/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Tor/0.4.5.9/Tor/0.4.5.9/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/tor) |
 | btcpayserver/postgres | 13.7 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Postgres/13.7/Postgres/13.7/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Postgres/13.7/Postgres/13.7/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Postgres/13.7/Postgres/13.7/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/postgres) |
 | kamigawabul/btglnd | latest | [✔️](https://raw.githubusercontent.com/vutov/lnd/master/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/vutov/lnd) - [DockerHub](https://hub.docker.com/r/kamigawabul/btglnd) |
 | kamigawabul/docker-bitcoingold | 0.15.2 | [✔️](https://raw.githubusercontent.com/Vutov/docker-bitcoin/master/bitcoingold/0.15.2/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Vutov/docker-bitcoin) - [DockerHub](https://hub.docker.com/r/kamigawabul/docker-bitcoingold) |
@@ -368,7 +349,7 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | chekaz/docker-bitcoinplus | 2.7.0 | [✔️](https://raw.githubusercontent.com/ChekaZ/docker/master/bitcoinplus/2.7.0/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/ChekaZ/docker) - [DockerHub](https://hub.docker.com/r/chekaz/docker-bitcoinplus) |
 | dalijolijo/docker-bitcore | 0.90.9.10 | [✔️](https://raw.githubusercontent.com/dalijolijo/btcpayserver-docker-bitcore/master/docker-bitcored/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/dalijolijo/btcpayserver-docker-bitcore) - [DockerHub](https://hub.docker.com/r/dalijolijo/docker-bitcore) |
 | btcpayserver/dash | 0.17.0.3 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.17.0.3/Dash/0.17.0.3/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.17.0.3/Dash/0.17.0.3/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dash/0.17.0.3/Dash/0.17.0.3/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/dash) |
-| btcpayserver/dogecoin | 1.14.6 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dogecoin/1.14.6/Dogecoin/1.14.6/linuxamd64.Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/dogecoin) |
+| btcpayserver/dogecoin | 1.14.5 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Dogecoin/1.14.5/Dogecoin/1.14.5/linuxamd64.Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/dogecoin) |
 | chekaz/docker-feathercoin | 0.16.3 | [✔️](https://raw.githubusercontent.com/ChekaZ/docker/master/feathercoin/0.16.3/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/ChekaZ/docker) - [DockerHub](https://hub.docker.com/r/chekaz/docker-feathercoin) |
 | groestlcoin/lightning | v0.10.0 | [✔️](https://raw.githubusercontent.com/Groestlcoin/lightning/v0.10.0/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/lightning) - [DockerHub](https://hub.docker.com/r/groestlcoin/lightning) |
 | groestlcoin/groestlcoin-lightning-charge | version-0.4.22 | [✔️](https://raw.githubusercontent.com/Groestlcoin/groestlcoin-lightning-charge/v0.4.22/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Groestlcoin/groestlcoin-lightning-charge) - [DockerHub](https://hub.docker.com/r/groestlcoin/groestlcoin-lightning-charge) |
@@ -379,8 +360,9 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | btcpayserver/elements | 0.21.0.2-1 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Elements/0.21.0.2-1/Elements/0.21.0.2/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Elements/0.21.0.2-1/Elements/0.21.0.2/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Elements/0.21.0.2-1/Elements/0.21.0.2/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/elements) |
 | btcpayserver/litecoin | 0.21.2.1 | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.21.2.1/Litecoin/0.21.2.1/linuxamd64.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.21.2.1/Litecoin/0.21.2.1/linuxarm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/btcpayserver/dockerfile-deps/Litecoin/0.21.2.1/Litecoin/0.21.2.1/linuxarm64v8.Dockerfile) | [Github](https://github.com/btcpayserver/dockerfile-deps) - [DockerHub](https://hub.docker.com/r/btcpayserver/litecoin) |
 | wakiyamap/docker-monacoin | 0.20.2 | [✔️](https://raw.githubusercontent.com/wakiyamap/docker-bitcoin/master/monacoin/0.20.2/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/wakiyamap/docker-bitcoin) - [DockerHub](https://hub.docker.com/r/wakiyamap/docker-monacoin) |
+| btcpayserver/monero | 0.18.0.0-amd64 | [✔️](https://raw.githubusercontent.com/Kukks/monero-docker/x86_64/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/Kukks/monero-docker) - [DockerHub](https://hub.docker.com/r/btcpayserver/monero) |
 | redis | 6.2.2-buster | [✔️](https://raw.githubusercontent.com/docker-library/redis/f1a8498333ae3ab340b5b39fbac1d7e1dc0d628c/5.0/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/docker-library/redis) - [DockerHub](https://hub.docker.com/_/redis) |
-| bluewalletorganization/lndhub | v1.4.1 | [✔️](https://raw.githubusercontent.com/BlueWallet/LndHub/v1.4.1/Dockerfile) | [✔️](https://raw.githubusercontent.com/BlueWallet/LndHub/v1.4.1/Dockerfile) | [✔️](https://raw.githubusercontent.com/BlueWallet/LndHub/v1.4.1/Dockerfile) | [Github](https://github.com/BlueWallet/LndHub) - [DockerHub](https://hub.docker.com/r/bluewalletorganization/lndhub) |
+| bluewalletorganization/lndhub | v1.3.3 | [✔️](https://raw.githubusercontent.com/BlueWallet/LndHub/v1.3.3/Dockerfile) | [✔️](https://raw.githubusercontent.com/BlueWallet/LndHub/v1.3.3/Dockerfile) | ️❌ | [Github](https://github.com/BlueWallet/LndHub) - [DockerHub](https://hub.docker.com/r/bluewalletorganization/lndhub) |
 | jvandrew/btcqbo | 0.3.36 | [✔️](https://raw.githubusercontent.com/JeffVandrewJr/btcqbo/v0.3.36/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/JeffVandrewJr/btcqbo) - [DockerHub](https://hub.docker.com/r/jvandrew/btcqbo) |
 | shesek/bwt | 0.2.2-electrum | [✔️](https://raw.githubusercontent.com/bwt-dev/bwt/v0.2.2/docker/Dockerfile) | [✔️](https://raw.githubusercontent.com/bwt-dev/bwt/v0.2.2/docker/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/bwt-dev/bwt/v0.2.2/docker/arm64v8.Dockerfile) | [Github](https://github.com/bwt-dev/bwt) - [DockerHub](https://hub.docker.com/r/shesek/bwt) |
 | chatwoot/chatwoot | v1.7.0 | [✔️](https://raw.githubusercontent.com/chatwoot/chatwoot/v1.7.0/docker/Dockerfile) | [✔️](https://raw.githubusercontent.com/chatwoot/chatwoot/v1.7.0/docker/Dockerfile) | [✔️](https://raw.githubusercontent.com/chatwoot/chatwoot/v1.7.0/docker/Dockerfile) | [Github](https://github.com/chatwoot/chatwoot) - [DockerHub](https://hub.docker.com/r/chatwoot/chatwoot) |
@@ -389,9 +371,9 @@ We are trying to update our dependencies to run on `arm32v7` and `x64` boards. H
 | podcastindexorg/podcasting20-helipad | v0.1.10 | [✔️](https://raw.githubusercontent.com/Podcastindex-org/helipad/v0.1.10/umbrel/Dockerfile) | [✔️](https://raw.githubusercontent.com/Podcastindex-org/helipad/v0.1.10/umbrel/Dockerfile) | [✔️](https://raw.githubusercontent.com/Podcastindex-org/helipad/v0.1.10/umbrel/Dockerfile) | [Github](https://github.com/Podcastindex-org/helipad) - [DockerHub](https://hub.docker.com/r/podcastindexorg/podcasting20-helipad) |
 | jvandrew/librepatron | 0.7.39 | [✔️](https://raw.githubusercontent.com/JeffVandrewJr/patron/v0.7.39/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/JeffVandrewJr/patron) - [DockerHub](https://hub.docker.com/r/jvandrew/librepatron) |
 | jvandrew/isso | atron.22 | [✔️](https://raw.githubusercontent.com/JeffVandrewJr/isso/patron.22/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/JeffVandrewJr/isso) - [DockerHub](https://hub.docker.com/r/jvandrew/isso) |
-| lightninglabs/lightning-terminal | v0.6.7-alpha-path-prefix | [✔️](https://raw.githubusercontent.com/lightninglabs/lightning-terminal/v0.6.7-alpha/Dockerfile) | ️❌ | [✔️](https://raw.githubusercontent.com/lightninglabs/lightning-terminal/v0.6.7-alpha/Dockerfile) | [Github](https://github.com/lightninglabs/lightning-terminal) - [DockerHub](https://hub.docker.com/r/lightninglabs/lightning-terminal) |
+| lightninglabs/lightning-terminal | v0.6.3-alpha-path-prefix | [✔️](https://raw.githubusercontent.com/lightninglabs/lightning-terminal/v0.6.3-alpha/Dockerfile) | ️❌ | ️❌ | [Github](https://github.com/lightninglabs/lightning-terminal) - [DockerHub](https://hub.docker.com/r/lightninglabs/lightning-terminal) |
 | kukks/nnostr-relay | v0.0.7 | [✔️](https://raw.githubusercontent.com/kukks/nnostr/Relay/v0.0.7/Relay/Dockerfile) | [✔️](https://raw.githubusercontent.com/kukks/nnostr/Relay/v0.0.7/Relay/Dockerfile) | [✔️](https://raw.githubusercontent.com/kukks/nnostr/Relay/v0.0.7/Relay/Dockerfile) | [Github](https://github.com/kukks/nnostr) - [DockerHub](https://hub.docker.com/r/kukks/nnostr-relay) |
-| sphinxlightning/sphinx-relay | v2.2.9 | [✔️](https://raw.githubusercontent.com/stakwork/sphinx-relay/v2.2.9/Dockerfile) | [✔️](https://raw.githubusercontent.com/stakwork/sphinx-relay/v2.2.9/Dockerfile) | [✔️](https://raw.githubusercontent.com/stakwork/sphinx-relay/v2.2.9/Dockerfile) | [Github](https://github.com/stakwork/sphinx-relay) - [DockerHub](https://hub.docker.com/r/sphinxlightning/sphinx-relay) |
+| sphinxlightning/sphinx-relay | v2.2.5 | [✔️](https://raw.githubusercontent.com/stakwork/sphinx-relay/v2.2.5/Dockerfile) | ️❌ | [✔️](https://raw.githubusercontent.com/stakwork/sphinx-relay/v2.2.5/Dockerfile) | [Github](https://github.com/stakwork/sphinx-relay) - [DockerHub](https://hub.docker.com/r/sphinxlightning/sphinx-relay) |
 | dennisreimann/tallycoin_connect | v1.7.3 | [✔️](https://raw.githubusercontent.com/dennisreimann/tallycoin_connect/v1.7.3/Dockerfile) | [✔️](https://raw.githubusercontent.com/dennisreimann/tallycoin_connect/v1.7.3/Dockerfile.arm32v7) | [✔️](https://raw.githubusercontent.com/dennisreimann/tallycoin_connect/v1.7.3/Dockerfile.arm64v8) | [Github](https://github.com/dennisreimann/tallycoin_connect) - [DockerHub](https://hub.docker.com/r/dennisreimann/tallycoin_connect) |
 | talaia/python-teos | latest | [✔️](https://raw.githubusercontent.com/talaia-labs/python-teos/master/docker/Dockerfile) | [✔️](https://raw.githubusercontent.com/talaia-labs/python-teos/master/docker/arm32v7.Dockerfile) | [✔️](https://raw.githubusercontent.com/talaia-labs/python-teos/master/docker/arm64v8.Dockerfile) | [Github](https://github.com/talaia-labs/python-teos) - [DockerHub](https://hub.docker.com/r/talaia/python-teos) |
 | apotdevin/thunderhub | base-v0.13.11 | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.13.11/Dockerfile) | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.13.11/Dockerfile) | [✔️](https://raw.githubusercontent.com/apotdevin/thunderhub/v0.13.11/Dockerfile) | [Github](https://github.com/apotdevin/thunderhub) - [DockerHub](https://hub.docker.com/r/apotdevin/thunderhub) |
@@ -489,7 +471,7 @@ export BTCPAYGEN_ADDITIONAL_FRAGMENTS="$BTCPAYGEN_ADDITIONAL_FRAGMENTS;opt-save-
 . ./btcpay-setup.sh -i
 ```
 
-## Can I run BTCPay Server on ports other than 80 and 443?
+## Can I run ZEUSPay Server on ports other than 80 and 443?
 
 You can change the ports for HTTP and HTTPS by setting the environment variables `REVERSEPROXY_HTTP_PORT` and `REVERSEPROXY_HTTPS_PORT`. This is handy when ports 80 and 443 are already in use on your host, or you want to offload SSL termination with an existing web proxy.
 
@@ -499,17 +481,17 @@ If you need to run on a different port, it's best to terminate SSL using another
 
 ## Can I offload HTTPS termination?
 
-Yes. Please [see the documentation](https://docs.btcpayserver.org/FAQ/FAQ-Deployment/#can-i-use-an-existing-nginx-server-as-a-reverse-proxy-with-ssl-termination).
+Yes. Please [see the documentation](https://docs.zeuspay.com/FAQ/FAQ-Deployment/#can-i-use-an-existing-nginx-server-as-a-reverse-proxy-with-ssl-termination).
 
-## How can I back up my BTCPay Server?
+## How can I back up my ZEUSPay Server?
 
-See the [Backup & Restore](https://docs.btcpayserver.org/Docker/backup-restore/) guide in our documentation.
+See the [Backup & Restore](https://docs.zeuspay.com/Docker/backup-restore/) guide in our documentation.
 
 <details>
 <summary>For backwards compatibility: Click here for the description of the old backup.sh process</summary>
 
 :::warning
-Please consider switching to the [new Backup & Restore process](https://docs.btcpayserver.org/Docker/backup-restore/), because the `backup.sh` will not be maintained anymore.
+Please consider switching to the [new Backup & Restore process](https://docs.zeuspay.com/Docker/backup-restore/), because the `backup.sh` will not be maintained anymore.
 :::
 We provide a backup script that dumps the database and saves the important files:
 

@@ -45,7 +45,7 @@ cd $btcpay_dir
 dbcontainer=$(docker ps -a -q -f "name=postgres_1")
 if [ -z "$dbcontainer" ]; then
   printf "\n"
-  echo "ℹ️ Database container is not up and running. Starting BTCPay Server …"
+  echo "ℹ️ Database container is not up and running. Starting ZEUSPay …"
   docker volume create generated_postgres_datadir
   docker-compose -f $BTCPAY_DOCKER_COMPOSE up -d postgres
 
@@ -67,7 +67,7 @@ echo "ℹ️ Dumping database …"
   exit 1
 }
 
-printf "\nℹ️ Stopping BTCPay Server …\n\n"
+printf "\nℹ️ Stopping ZEUSPay …\n\n"
 btcpay_down
 
 printf "\n"
@@ -99,7 +99,7 @@ echo "ℹ️ Archiving files in $(pwd)…"
       echo "✅ Encryption done."
     } || {
       echo "🚨  Encrypting failed. Please check the error message above."
-      printf "\nℹ️  Restarting BTCPay Server …\n\n"
+      printf "\nℹ️  Restarting ZEUSPay …\n\n"
       cd $btcpay_dir
       btcpay_up
       exit 1
@@ -107,13 +107,13 @@ echo "ℹ️ Archiving files in $(pwd)…"
   fi
 } || {
   echo "🚨 Archiving failed. Please check the error message above."
-  printf "\nℹ️ Restarting BTCPay Server …\n\n"
+  printf "\nℹ️ Restarting ZEUSPay …\n\n"
   cd $btcpay_dir
   btcpay_up
   exit 1
 }
 
-printf "\nℹ️ Restarting BTCPay Server …\n\n"
+printf "\nℹ️ Restarting ZEUSPay …\n\n"
 cd $btcpay_dir
 btcpay_up
 
