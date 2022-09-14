@@ -54,23 +54,23 @@ cat <<-END
 Usage:
 ------
 
-Install BTCPay on this server
+Install ZEUSPay on this server
 This script must be run as root, except on Mac OS
 
-    -i : Run install and start BTCPay Server
+    -i : Run install and start ZEUSPay
     --install-only: Run install only
     --docker-unavailable: Same as --install-only, but will also skip install steps requiring docker
-    --no-startup-register: Do not register BTCPayServer to start via systemctl or upstart
+    --no-startup-register: Do not register ZEUSPay to start via systemctl or upstart
     --no-systemd-reload: Do not reload systemd configuration
 
 This script will:
 
 * Install Docker
 * Install Docker-Compose
-* Setup BTCPay settings
+* Setup ZEUSPay settings
 * Make sure it starts at reboot via upstart or systemd
-* Add BTCPay utilities in /usr/bin
-* Start BTCPay
+* Add ZEUSPay utilities in /usr/bin
+* Start ZEUSPay
 
 You can run again this script if you desire to change your configuration.
 Except BTC and LTC, other crypto currencies are maintained by their own community. Run at your own risk.
@@ -80,7 +80,7 @@ If you want HTTPS setup automatically with Let's Encrypt, leave REVERSEPROXY_HTT
 Or, if you want to offload SSL because you have an existing web proxy, change REVERSEPROXY_HTTP_PORT to any port you want. You can then forward the traffic. Just don't forget to pass the X-Forwarded-Proto header.
 
 Environment variables:
-    BTCPAY_HOST: The hostname of your website (eg. btcpay.example.com)
+    BTCPAY_HOST: The hostname of your website (eg. zeuspay.example.com)
     REVERSEPROXY_HTTP_PORT: The port the reverse proxy binds to for public HTTP requests. Default: 80
     REVERSEPROXY_HTTPS_PORT: The port the reverse proxy binds to for public HTTPS requests. Default: 443
     REVERSEPROXY_DEFAULT_HOST: Optional, if using a reverse proxy nginx, specify which website should be presented if the server is accessed by its IP.
@@ -375,12 +375,12 @@ fi
 
 chmod +x ${BASH_PROFILE_SCRIPT}
 
-echo -e "BTCPay Server environment variables successfully saved in $BASH_PROFILE_SCRIPT\n"
+echo -e "ZEUSPay environment variables successfully saved in $BASH_PROFILE_SCRIPT\n"
 
 
 btcpay_update_docker_env
 
-echo -e "BTCPay Server docker-compose parameters saved in $BTCPAY_ENV_FILE\n"
+echo -e "ZEUSPay docker-compose parameters saved in $BTCPAY_ENV_FILE\n"
 
 . "$BASH_PROFILE_SCRIPT"
 
@@ -498,14 +498,14 @@ WantedBy=multi-user.target" > /etc/systemd/system/btcpayserver.service
         $SYSTEMD_RELOAD && $START && systemctl restart docker
     fi
 
-    echo -e "BTCPay Server systemd configured in /etc/systemd/system/btcpayserver.service\n"
+    echo -e "ZEUSPay systemd configured in /etc/systemd/system/btcpayserver.service\n"
     if $SYSTEMD_RELOAD; then
         systemctl daemon-reload
         systemctl enable btcpayserver
         if $START; then
-            echo "BTCPay Server starting... this can take 5 to 10 minutes..."
+            echo "ZEUSPay starting... this can take 5 to 10 minutes..."
             systemctl start btcpayserver
-            echo "BTCPay Server started"
+            echo "ZEUSPay started"
         fi
     else
         systemctl --no-reload enable btcpayserver
@@ -531,7 +531,7 @@ script
     . helpers.sh
     btcpay_up
 end script" > /etc/init/start_containers.conf
-    echo -e "BTCPay Server upstart configured in /etc/init/start_containers.conf\n"
+    echo -e "ZEUSPay upstart configured in /etc/init/start_containers.conf\n"
 
     if $START; then
         initctl reload-configuration
